@@ -77,3 +77,18 @@ fr c1 | actual costs
 
 ```
 ***
+## AI PseudoCode
+```
+
+start at root node
+
+append current to final
+
+while exploring ->
+  figure out information
+  add successors to exploring, remove current
+  pick best successor in exploring, add to explored and append to final
+  repeat
+
+```
+***
