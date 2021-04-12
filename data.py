@@ -1,3 +1,7 @@
+# calculation logging flag
+log = False
+
+# available city/station codes
 cities = [
   'MUM',
   'DEL',
@@ -12,6 +16,7 @@ cities = [
   'VKP'
 ]
 
+# path costs
 costs = [
 # JOURNEY TIME IN HOURS:
 #----------------------#
@@ -29,6 +34,7 @@ costs = [
   [  -1,  -1,  -1,  12,  -1,  18,  -1,  -1,  -1,  -1,   0]  # VKP
 ]
 
+# heuristic values
 heuristics = [
 # ESTIMATED HOURS REQUIRED TO COVER STRAIGHT LINE DISTANCE:
 #---------------------------------------------------------#
@@ -46,6 +52,7 @@ heuristics = [
   [  22,  37,  19,   9,  41,  14,  30,  18,  33,  38,   0]  # VKP
 ]
 
+# schedule table
 departures = [
 # HOURS OF THE DAY WHEN A TRAIN DEPARTS, IN RANGE [0, 24):
 #--------------------------------------------------------#
@@ -63,6 +70,7 @@ departures = [
   [                (),             (),                     (),      (6, 14, 17),          (),        (7, 14, 16),                  (),              (),           (),      (),          ()]  # VKP
 ]
 
+# train map
 map = r'''
                   ,---------------17-------------[KLK]---15---[GWT]
           6-----[DEL]                            /

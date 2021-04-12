@@ -1,5 +1,7 @@
+# imports
 import data
 
+# node model definition
 class Node:
   # init method
   def __init__(self, station, destination):
@@ -10,16 +12,16 @@ class Node:
     self.next_stop_costs = data.costs[station] # - <list<int>> path costs till next stops
     self.parent_node = None # -------------------- <Node> parent state node of self
     self.arrival_time = -1 # --------------------- <int> arrival time of agent at self
-    self.wait_time = 0 # ------------------------- <int> wait time of agent to get to self
-    self.chosen_departure = -1 # ----------------- <int> departure time chosen by agent
+    self.chosen_departure = -1 # ----------------- <int> departure time for parent chosen by agent
 
     self.heuristic = data.heuristics[station][destination] # - h(n)
     self.cumulative = 0 # ------------------------------------ g(n)
+    self.wait_time = 0 # ------------------------------------- w(n)
     self.evaluated_value = self.heuristic # ------------------ f(n)
 
   # successors generator method
   def successors(self):
-    res = []
+    result = []
     for i in range(len(self.next_stop_costs)):
       if(self.next_stop_costs[i] > 0):
         node = Node(i, self.destination)
@@ -33,16 +35,16 @@ class Node:
             wait_times.append(departure_time - node.parent_node.arrival_time)
         node.wait_time = min(wait_times)
         min_index = wait_times.index(node.wait_time)
-        node.parent_node.chosen_departure = available_departures[min_index]
-        node.parent_node = node.parent_node
-        node.arrival_time = (node.parent_node.chosen_departure + node.parent_node.next_stop_costs[node.station]) % 24
+        node.chosen_departure = available_departures[min_index]
+        node.arrival_time = (node.chosen_departure + node.parent_node.next_stop_costs[node.station]) % 24
         node.cumulative = node.parent_node.cumulative + node.parent_node.next_stop_costs[node.station] + node.wait_time
         node.evaluated_value = node.cumulative + node.heuristic
-        print(f'for successor {node.name}:')
-        print(f'  available departures = {available_departures}')
-        print(f'  wait times = {wait_times}, smallest of which is {node.wait_time}')
-        print(f'  chosen departure time from node.parent_node = {node.parent_node.chosen_departure}')
-        print(f'  arrival time = {node.arrival_time}')
-        print(f'  eval = {node.evaluated_value}')
-        res.append(node)
-    return res
+        if(data.log):
+          print(f'for successor {node.name}:')
+          print(f'  available departures = {available_departures}')
+          print(f'  wait times = {wait_times}, smallest of which is {node.wait_time}')
+          print(f'  chosen departure time from node.parent_node = {node.parent_node.chosen_departure}')
+          print(f'  arrival time = {node.arrival_time}')
+          print(f'  eval = {node.evaluated_value}')
+        result.append(node)
+    return result

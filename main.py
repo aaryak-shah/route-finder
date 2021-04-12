@@ -2,7 +2,6 @@
 from models import Node
 import util
 import ai
-# from lib.models import Node
 
 # driver code
 (depart, arrive, start) = util.menu() # utility to run app menu
