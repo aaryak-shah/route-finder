@@ -5,15 +5,11 @@ import data
 
 # modified a* to find route
 def find_route(depart, arrive, start):
+  # initalise problem
   current = Node(depart, arrive)
   current.arrival_time = start
-  exploring = [current]
+  exploring = [current] # open set
   while (exploring):
-    if (data.log):
-      print(f'\ncurrently at {current.name}/{current.evaluated_value} and exploring...')
-      for node in exploring:
-        print(f'  {node.name}/{node.evaluated_value}', end="")
-      print()
     successors = current.successors()
     exploring.remove(current)
     for successor in successors:
@@ -22,7 +18,5 @@ def find_route(depart, arrive, start):
     for node in exploring:
       if (node.evaluated_value < current.evaluated_value):
         current = node
-        if (data.log):
-          print(f'  switching current to {current.name}/{current.evaluated_value} wtih at {current.arrival_time} and dt {current.chosen_departure}')
     if (current.station is arrive):
       return util.generate_route(current)

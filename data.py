@@ -1,6 +1,3 @@
-# calculation logging flag
-log = False
-
 # available city/station codes
 cities = [
   'MUM',

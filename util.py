@@ -79,11 +79,6 @@ def end_card(station, arrive, elapsed):
 
 # utility function that takes a formatted route and displays it
 def display_route(route):
-  if(data.log):
-    print()
-    for st in route:
-      print(st)
-    print()
   start_card(route[0][0], route[0][1], route[0][2], route[0][3])
   for station in route[1:-1]:
     mid_card(station[0], station[1], station[2], station[3])
@@ -94,11 +89,6 @@ def menu():
   print()
   print('->> WELCOME TO ROUTE FINDER <<-')
   print('-------------------------------')
-  # choice = input('Enable calculation log? [Y/n]')
-  # if (choice in ['y', 'Y']):
-  #   data.log = True
-  # else:
-  #   data.log = False
   print()
   print(data.map)
   print()

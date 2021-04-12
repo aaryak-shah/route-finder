@@ -24,27 +24,22 @@ class Node:
     result = []
     for i in range(len(self.next_stop_costs)):
       if(self.next_stop_costs[i] > 0):
+        # initialisation of successor node
         node = Node(i, self.destination)
         node.parent_node = self
         available_departures = node.parent_node.departures[node.station]
         wait_times = []
+        # calculate wait times to this node
         for departure_time in available_departures:
           if(departure_time < node.parent_node.arrival_time):
-            wait_times.append((24 - node.parent_node.arrival_time) + departure_time)
+            wait_times.append((24 - node.parent_node.arrival_time) + departure_time) # arrived after departure time, must wait for next day
           else:
-            wait_times.append(departure_time - node.parent_node.arrival_time)
+            wait_times.append(departure_time - node.parent_node.arrival_time) # arrived before departure time, only wait till departure time
         node.wait_time = min(wait_times)
         min_index = wait_times.index(node.wait_time)
         node.chosen_departure = available_departures[min_index]
-        node.arrival_time = (node.chosen_departure + node.parent_node.next_stop_costs[node.station]) % 24
-        node.cumulative = node.parent_node.cumulative + node.parent_node.next_stop_costs[node.station] + node.wait_time
-        node.evaluated_value = node.cumulative + node.heuristic
-        if(data.log):
-          print(f'for successor {node.name}:')
-          print(f'  available departures = {available_departures}')
-          print(f'  wait times = {wait_times}, smallest of which is {node.wait_time}')
-          print(f'  chosen departure time from node.parent_node = {node.parent_node.chosen_departure}')
-          print(f'  arrival time = {node.arrival_time}')
-          print(f'  eval = {node.evaluated_value}')
+        node.arrival_time = (node.chosen_departure + node.parent_node.next_stop_costs[node.station]) % 24 # % 24 because time cannot exceed 23 hours
+        node.cumulative = node.parent_node.cumulative + node.parent_node.next_stop_costs[node.station] + node.wait_time # calculate g(n)
+        node.evaluated_value = node.cumulative + node.heuristic # calculate f(n)
         result.append(node)
     return result
