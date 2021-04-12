@@ -1,5 +1,24 @@
+## AI Pseudo-Code
+```
+
+Algorithm findRoute():
+  current := startState
+  frontier := [ current ]
+  While frontier is not empty:
+    Generate successors
+    Remove current from frontier
+    For Each successor:
+      Generate wait durations
+      Apply evaluation function
+      Append successor to frontier
+    current := node in frontier with min value
+    If current is destination:
+      Generate route
+      Return
+
+```
 ***
-## Map
+## Train Map
 ```
 
                   ,---------------17-------------[KLK]---15---[GWT]
@@ -43,9 +62,9 @@
       ---to-->
       c0 c1 c2 c3 c4 ..
  | c0 +------------- ..
-fr c1 | actual costs
- | c2 | sld's
- | c3 | train schedules
+fr c1 | actual costs,
+ | c2 | sld's,
+ | c3 | train schedules,
  v c4 | 
     : :
 
@@ -74,21 +93,6 @@ fr c1 | actual costs
 | arrival: 0200     |
 | elapsed: 36h      |
 +-------------------+
-
-```
-***
-## AI PseudoCode
-```
-
-start at root node
-
-append current to final
-
-while exploring ->
-  figure out information
-  add successors to exploring, remove current
-  pick best successor in exploring, add to explored and append to final
-  repeat
 
 ```
 ***
