@@ -27,7 +27,7 @@ project
 ├── data.py (demo data file)
 ├── models.py (Node class definition)
 ├── ai.py (AI algorithm)
-└── util.out (utility functions)
+└── util.py (utility functions)
 ```
 
 ## Try It Out
